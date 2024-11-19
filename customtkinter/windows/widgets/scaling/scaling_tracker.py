@@ -171,6 +171,7 @@ class ScalingTracker:
 
     @classmethod
     def check_dpi_scaling(cls):
+        style = tkinter.ttk.Style()
         new_scaling_detected = False
 
         # check for every window if scaling value changed
@@ -179,6 +180,9 @@ class ScalingTracker:
                 current_dpi_scaling_value = cls.get_window_dpi_scaling(window)
                 if current_dpi_scaling_value != cls.window_dpi_scaling_dict[window]:
                     cls.window_dpi_scaling_dict[window] = current_dpi_scaling_value
+                    
+                    style.configure('Treeview.Heading', font=('Segoe UI', int(10*current_dpi_scaling_value), 'bold'))
+                    style.configure('Treeview', font=('Segoe UI', int(10*current_dpi_scaling_value)), rowheight=int(23*current_dpi_scaling_value))
 
                     if sys.platform.startswith("win"):
                         window.attributes("-alpha", 0.15)
