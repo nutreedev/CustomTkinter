@@ -271,7 +271,10 @@ class CTkBaseClass(tkinter.Frame, CTkAppearanceModeBaseClass, CTkScalingBaseClas
         if "width" in kwargs or "height" in kwargs:
             raise ValueError("'width' and 'height' arguments must be passed to the constructor of the widget, not the place method")
         self._last_geometry_manager_call = {"function": super().place, "kwargs": kwargs}
-        return super().place(**self._apply_argument_scaling(kwargs))
+        #Buggy method apply_argument_scaling
+        #Causes widgets to appear in wrong location when scaling is not 1.0
+        #return super().place(**self._apply_argument_scaling(kwargs))
+        return super().place(**kwargs)
 
     def place_forget(self):
         """ Unmap this widget. """
